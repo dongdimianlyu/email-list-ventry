@@ -31,8 +31,12 @@ export default function WaitlistPage() {
 
       setMessage(data.message);
       setEmail('');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -46,7 +50,7 @@ export default function WaitlistPage() {
             Be first to unlock AI-driven growth playbooks—get an <span style={{color: '#C9F223'}}>AI COO</span> that turns every dollar into <span style={{color: '#C9F223'}}>predictable scale</span>.
           </h1>
           <p className="text-lg text-gray-500 md:text-xl dark:text-gray-400">
-            Join the Ventry waitlist and turn every dollar of your monthly revenue into reliable, data-driven growth. It's like having a seasoned operations partner on your team—without the six-figure salary.
+            Join the Ventry waitlist and turn every dollar of your monthly revenue into reliable, data-driven growth. It&apos;s like having a seasoned operations partner on your team—without the six-figure salary.
           </p>
 
           <div className="w-full max-w-sm mx-auto">
@@ -92,7 +96,7 @@ export default function WaitlistPage() {
                 <div className="mx-auto mt-8 grid gap-8 sm:grid-cols-2">
                     <div className="p-4 rounded-lg text-left">
                         <h3 className="text-xl font-bold mb-2 text-white">Data-Driven Strategy</h3>
-                        <p className="text-gray-300">Leveraging multimodal LLMs and RAG-driven benchmarks—backed by hundreds of e-commerce case studies and leading venture-operations texts—Ventry analyzes your business's unique metrics.</p>
+                        <p className="text-gray-300">Leveraging multimodal LLMs and RAG-driven benchmarks—backed by hundreds of e-commerce case studies and leading venture-operations texts—Ventry analyzes your business&apos;s unique metrics.</p>
                     </div>
                     <div className="p-4 rounded-lg text-left">
                         <h3 className="text-xl font-bold mb-2 text-white">Cohesive Monthly Plans</h3>
@@ -104,7 +108,7 @@ export default function WaitlistPage() {
                     </div>
                      <div className="p-4 rounded-lg text-left">
                         <h3 className="text-xl font-bold mb-2 text-white">Continuous Optimization</h3>
-                        <p className="text-gray-300">Just like a human partner, Ventry learns and adapts, continuously refining its approach based on what's working for your business right now.</p>
+                        <p className="text-gray-300">Just like a human partner, Ventry learns and adapts, continuously refining its approach based on what&apos;s working for your business right now.</p>
                     </div>
                 </div>
             </div>
@@ -116,7 +120,7 @@ export default function WaitlistPage() {
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Join the Exclusive Beta</h2>
                 <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                  Sign up now to be one of the 100 exclusive beta testers and experience the future of business execution for absolutely free. No credit card required. We will send you the beta version as soon as it's ready.
+                  Sign up now to be one of the 100 exclusive beta testers and experience the future of business execution for absolutely free. No credit card required. We will send you the beta version as soon as it&apos;s ready.
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">

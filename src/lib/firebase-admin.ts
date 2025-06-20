@@ -10,7 +10,7 @@ if (!serviceAccountString) {
 let serviceAccount;
 try {
   serviceAccount = JSON.parse(serviceAccountString);
-} catch (e) {
+} catch {
   throw new Error('Could not parse FIREBASE_SERVICE_ACCOUNT. Make sure it is a valid JSON object.');
 }
 
