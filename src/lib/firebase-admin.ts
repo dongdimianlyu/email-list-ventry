@@ -1,17 +1,14 @@
 import { cert, getApp, getApps, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 
-const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT;
+const serviceAccount = {
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+};
 
-if (!serviceAccountString) {
-  throw new Error('The FIREBASE_SERVICE_ACCOUNT environment variable is not set. Please make sure to create a .env.local file with it.');
-}
-
-let serviceAccount;
-try {
-  serviceAccount = JSON.parse(serviceAccountString);
-} catch {
-  throw new Error('Could not parse FIREBASE_SERVICE_ACCOUNT. Make sure it is a valid JSON object.');
+if (!serviceAccount.projectId || !serviceAccount.clientEmail || !serviceAccount.privateKey) {
+  throw new Error('Firebase Admin environment variables not set. Please set FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY in your environment.');
 }
 
 const app = getApps().length
