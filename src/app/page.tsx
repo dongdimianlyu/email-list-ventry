@@ -58,7 +58,7 @@ export default function WaitlistPage() {
             Your <span style={{color: '#C9F223'}}>AI-powered COO</span>. Built for <span style={{color: '#C9F223'}}>E-commerce Founders</span>.
           </h1>
           <p className="text-lg text-gray-500 md:text-xl dark:text-gray-400">
-            Join the Ventry waitlist and turn every dollar of your monthly revenue into reliable, data-driven growth. It&apos;s like having a seasoned operations partner on your team—without the six-figure salary.
+            Join the Ventry waitlist and turn every dollar of your monthly revenue into reliable, data-driven growth.  It&apos;s like having a seasoned operations partner on your team—without the six-figure salary.
           </p>
 
           <div className="w-full max-w-sm mx-auto">
