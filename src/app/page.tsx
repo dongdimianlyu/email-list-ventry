@@ -7,12 +7,14 @@ export default function WaitlistPage() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setMessage('');
     setError('');
+    setIsSuccess(false);
 
     try {
       const response = await fetch('/api/waitlist', {
@@ -30,7 +32,13 @@ export default function WaitlistPage() {
       }
 
       setMessage(data.message);
+      setIsSuccess(true);
       setEmail('');
+      
+      setTimeout(() => {
+        setIsSuccess(false);
+        setMessage('');
+      }, 4000);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -43,11 +51,11 @@ export default function WaitlistPage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-[#1A4231] text-gray-100 p-4">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-[#1A4231] text-gray-100 p-4 pt-32">
       <div className="max-w-3xl w-full mx-auto text-center space-y-12">
         <header className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-            Be first to unlock AI-driven growth playbooks—get an <span style={{color: '#C9F223'}}>AI COO</span> that turns every dollar into <span style={{color: '#C9F223'}}>predictable scale</span>.
+            Your <span style={{color: '#C9F223'}}>AI-powered COO</span>. Built for <span style={{color: '#C9F223'}}>Shopify Founders</span>.
           </h1>
           <p className="text-lg text-gray-500 md:text-xl dark:text-gray-400">
             Join the Ventry waitlist and turn every dollar of your monthly revenue into reliable, data-driven growth. It&apos;s like having a seasoned operations partner on your team—without the six-figure salary.
@@ -72,7 +80,85 @@ export default function WaitlistPage() {
                 {isLoading ? 'Joining...' : 'Join the Waitlist'}
               </button>
             </form>
-            {message && <p className="text-green-500 mt-4">{message}</p>}
+            {isSuccess && (
+              <div className="mt-4 flex flex-col items-center justify-center">
+                <div className="w-16 h-16">
+                  <svg
+                    className="checkmark"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 52 52"
+                  >
+                    <circle
+                      className="checkmark__circle"
+                      cx="26"
+                      cy="26"
+                      r="25"
+                      fill="none"
+                    />
+                    <path
+                      className="checkmark__check"
+                      fill="none"
+                      d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                    />
+                  </svg>
+                </div>
+                <p className="text-[#C9F223] mt-2">{message}</p>
+                <style jsx>{`
+                  .checkmark__circle {
+                    stroke-dasharray: 166;
+                    stroke-dashoffset: 166;
+                    stroke-width: 2;
+                    stroke-miterlimit: 10;
+                    stroke: #C9F223;
+                    fill: none;
+                    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+                  }
+
+                  .checkmark {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    display: block;
+                    stroke-width: 2;
+                    stroke: #fff;
+                    stroke-miterlimit: 10;
+                    margin: 10% auto;
+                    box-shadow: inset 0px 0px 0px #1A4231;
+                    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+                  }
+
+                  .checkmark__check {
+                    transform-origin: 50% 50%;
+                    stroke-dasharray: 48;
+                    stroke-dashoffset: 48;
+                    stroke: #C9F223;
+                    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+                  }
+
+                  @keyframes stroke {
+                    100% {
+                      stroke-dashoffset: 0;
+                    }
+                  }
+
+                  @keyframes scale {
+                    0%, 100% {
+                      transform: none;
+                    }
+                    50% {
+                      transform: scale3d(1.1, 1.1, 1);
+                    }
+                  }
+
+                  @keyframes fill {
+                    100% {
+                      box-shadow: inset 0px 0px 0px 30px #1A4231;
+                    }
+                  }
+                `}</style>
+              </div>
+            )}
+            {!isSuccess && message && <p className="text-green-500 mt-4">{message}</p>}
             {error && <p className="text-red-500 mt-4">{error}</p>}
           </div>
         </header>
